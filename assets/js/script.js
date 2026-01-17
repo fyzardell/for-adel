@@ -1,6 +1,6 @@
 
 const scenes = [
-  { text: "3", duration: 800 },
+  { text: "3", duration: 1000 },
   { text: "2", duration: 800 },
   { text: "1", duration: 800 },
   { text:"Happy Birthday Adel", duration: 1500 },
@@ -29,11 +29,11 @@ let columns = Math.floor(canvas.width / fontSize);
 let drops = Array(columns).fill(1);
 
 function drawRain() {
-  ctx.fillStyle = "rgba(0,0,0,0.09)";
+  ctx.fillStyle = "rgba(0,0,0,0.07)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   ctx.fillStyle = "rgba(225, 182, 193, 0.73)";
-  ctx.font = fontSize + "px monospace";
+  ctx.font = fontSize + "px 'Share Tech Mono'";
 
   for (let i = 0; i < drops.length; i++) {
     const char = rainChars[Math.floor(Math.random()* rainChars.length)];
@@ -78,4 +78,6 @@ function showScene() {
 }
 
 showScene();
+
+
 

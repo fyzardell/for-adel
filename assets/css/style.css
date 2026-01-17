@@ -8,7 +8,7 @@ body {
   background: black;
   height: 100vh;
   overflow: hidden;
-  font-family: 'poppins', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 /* canvas hujan */
@@ -34,12 +34,12 @@ body {
 }
 /* text utama*/
 #text {
-  color: #ff8bc7;
+  color: #f776b0;
   font-size: 90px;
   opacity: 0;
   transition: opacity 0.6s ease;
   text-shadow: 
-    0 0 10px rgba(255, 155, 180, 0.921),
-    0 0 25px rgba(225, 182, 193, 0.903);
+    0 0 30px rgba(234, 131, 177, 0.942),
+    0 0 25px rgba(224, 157, 184, 0.612);
   text-align: center;
 }
