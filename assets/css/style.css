@@ -1,0 +1,16 @@
+
+body {
+  margin: 0;
+  background: black;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#text {
+  color: pink;
+  font-size: 100px;
+  opacity: 0;
+  transition: opacity 0.6 ease;
+}
