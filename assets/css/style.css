@@ -30,16 +30,48 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 3;
 }
 /* text utama*/
-#text {
-  color: #f776b0;
+/* #text {
+  color: #ff93c4;
   font-size: 90px;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, font-size 0.4s ease;
   text-shadow: 
     0 0 30px rgba(234, 131, 177, 0.942),
     0 0 25px rgba(224, 157, 184, 0.612);
   text-align: center;
+} */
+
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+#fadeOverlay {
+  position: fixed;
+  inset: 0;
+  background: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+  z-index: 999;
+}
+
+body.fade-out {
+  animation: exitZoom 1.2s ease forwards;
+}
+
+@keyframes exitZoom {
+  to {
+    transform: scale(1.1);
+    filter: blur(12px);
+    opacity: 0;
+  }
 }
