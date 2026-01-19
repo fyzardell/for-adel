@@ -8,6 +8,12 @@ const scenes = [
   { text: "Happy 19+", duration: 2000 },
 ];
 
+window.addEventListener("pageshow", (e) => {
+  if (e.persisted) {
+    location.reload();
+  }
+});
+
 /* ================= CANVAS ================= */
 const rainCanvas = document.getElementById("rain");
 const rainCtx = rainCanvas.getContext("2d");
@@ -39,7 +45,7 @@ function drawRain() {
   rainCtx.fillStyle = "rgba(0,0,0,0.03)";
   rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
 
-  rainCtx.fillStyle = "rgba(225,182,193,0.7)";
+  rainCtx.fillStyle = "rgba(225,182,193,0.8)";
   rainCtx.font = `${fontSize}px 'Share Tech Mono'`;
 
   for (let i = 0; i < drops.length; i++) {
@@ -52,7 +58,6 @@ function drawRain() {
     drops[i] += Math.random() + 0.3;
   }
 }
-setInterval(drawRain, 33);
 
 /* ================= PARTICLES ================= */
 let particles = [];
@@ -174,7 +179,7 @@ if (scene.text === "Happy 19+") {
     document.getElementById("fadeOverlay").style.opacity = 1;
 
     setTimeout(() => {
-      window.location.href = "prize.html"; //halaman lanjutan
+      window.location.assign("prize.html"); //halaman lanjutan
     }, 1200);
   }, scene.duration - 300);
 }
@@ -188,7 +193,10 @@ if (scene.text === "Happy 19+") {
   }, scene.duration);
 }
 
-/* ================= LOADING ================= */
+/* ================= LOADING STATE ================= */
+let isLoaded = false;
+let rainInterval = null;
+
 window.addEventListener("load",  () => {
   const loading = document.getElementById("loading");
 
@@ -196,6 +204,17 @@ window.addEventListener("load",  () => {
   setTimeout(() => {
     loading.classList.add("hide");
 
-    runScene();
+    startExperience(); 
   }, 800);
 });
+
+function startExperience() {
+  if (isLoaded) return;
+  isLoaded = true;
+
+  // mulai hujan
+  rainInterval = setInterval(drawRain, 33);
+
+  // mulai scene
+  runScene();
+}

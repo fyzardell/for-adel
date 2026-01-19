@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    overflow: hidden;
+    background: #0b0b12;
+    font-family: 'Fredoka', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#stars {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+}
+
+.card {
+    position: relative;
+    z-index: 2;
+    background: rgba(255, 255, 255, 0.022);
+    backdrop-filter: blur(10px);
+    padding: 50px 40px;
+    border-radius: 24px;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.4),
+      inset 0 0 0 1px rgba(205, 150, 12, 0.015);
+    text-align: center;
+}
+
+/* kado emoji */
+.gift {
+    font-size: 120px;
+    cursor: pointer;
+    transition: transform 0.25s ease;
+    user-select: none;
+    will-change: transform;
+}
+
+/* hover biar hidup */
+.gift:hover {
+    transform: translateY(-6px) scale(1.05);
+}
+
+/* teks petunjuk */
+.hint {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #ff89bc;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+}
+
+/*buzz*/
+.shake-1 {
+    animation: shake 0.3s ease;
+}
+
+.shake-2 {
+    animation: shake-strong 0.3s ease;
+}
+
+@keyframes shake {
+    0% { transform: translate(0) }
+    25% { transform: translate(-4px, 2px) }
+    50% { transform: translate(4px, -2px) }
+    75% { transform: translate(-3px, 1px) }
+    100% { transform: translate(0) }
+}
+
+@keyframes shake-strong {
+    0% { transform: translate(0) rotate(0deg) }
+    20% { transform: translate(-6px, 4px) rotate(-2deg) }
+    40% { transform: translate(6px, -4px) rotate(2deg) }
+    60% { transform: translate(-10px, 4px) rotate(-1deg) }
+    80% { transform: translate(10px, -4px) rotate(1deg) }
+    100% { transform: translate(0) }
+}
+
+/* ledakan kado */
+.explode {
+    animation: explode 0.5s ease forwards;
+}
+
+@keyframes explode {
+    0% { transform: scale(1) rotate(0deg); }
+    30% { transform: scale(1.4) rotate(8deg); }
+    60% { transform: scale(0.8) rotate(-8deg); }
+    100% { 
+        transform: scale(0);
+        opacity: 0;
+        filter : blur(4px);
+    }
+}
+
+#confetti {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 3;
+}
