@@ -117,7 +117,7 @@ function createTextParticles(text) {
     particleCanvas.width,
     particleCanvas.height
   ).data;
-
+  
   for (let y = 0; y < particleCanvas.height; y += 4) {
     for (let x = 0; x < particleCanvas.width; x += 4) {
       const i = (y * particleCanvas.width + x) * 4;
@@ -188,4 +188,14 @@ if (scene.text === "Happy 19+") {
   }, scene.duration);
 }
 
-runScene();
+/* ================= LOADING ================= */
+window.addEventListener("load",  () => {
+  const loading = document.getElementById("loading");
+
+  //delay
+  setTimeout(() => {
+    loading.classList.add("hide");
+
+    runScene();
+  }, 800);
+});
