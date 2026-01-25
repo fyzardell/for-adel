@@ -33,13 +33,23 @@ body {
     text-align: center;
 }
 
-/* kado emoji */
-.gift {
-    font-size: 120px;
-    cursor: pointer;
-    transition: transform 0.25s ease;
-    user-select: none;
-    will-change: transform;
+.card.fade-out {
+  animation: cardFade 0.6s ease forwards;
+}
+
+@keyframes cardFade {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  60% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.85);
+  }
 }
 
 /* hover biar hidup */
@@ -49,11 +59,14 @@ body {
 
 /* teks petunjuk */
 .hint {
-    margin-top: 20px;
-    font-size: 18px;
-    color: #ff89bc;
-    opacity: 0.85;
+    margin-top: 14px;
+    font-size: 17px;
+    color: #f2b6c6;
+    letter-spacing: 0.3px;
     transition: opacity 0.3s ease;
+    text-shadow:
+    0 0 10px rgba(242,182,198,0.35),
+    0 0 22px rgba(242,182,198,0.15);
 }
 
 /*buzz*/
@@ -103,4 +116,16 @@ body {
     inset: 0;
     pointer-events: none;
     z-index: 3;
+}
+
+#gift {
+  width: 180px;
+  height: auto;
+  margin-bottom: 12px;
+  cursor: pointer;
+  user-select: none;
+    filter:
+    drop-shadow(0 0 28px rgba(255,215,150,0.6))
+    drop-shadow(0 0 14px rgba(242,182,198,0.25));
+  transition: transform 0.2s ease;
 }

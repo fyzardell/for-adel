@@ -42,7 +42,7 @@ addEventListener("resize", resize);
 let rainChars = ["0", "1"];
 
 function drawRain() {
-  rainCtx.fillStyle = "rgba(0,0,0,0.03)";
+  rainCtx.fillStyle = "rgba(0,0,0,0.06)";
   rainCtx.fillRect(0, 0, rainCanvas.width, rainCanvas.height);
 
   rainCtx.fillStyle = "rgba(225,182,193,0.8)";

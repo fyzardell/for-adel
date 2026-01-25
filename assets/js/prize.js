@@ -91,9 +91,20 @@ gift.addEventListener("click", () => {
 
     if (tapCount === 3) {
         exploded = true;
+        shakePower = 10;
         gift.classList.remove("shake-2");
         gift.classList.add("explode");
         hint.textContent = "";
+
+        document.querySelector(".card").classList.add("fade-out");
+
+        const rect = gift.getBoundingClientRect();
+        burst = {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+        radius: 0,
+        alpha: 0.9
+      };
 
         setTimeout(() => {
             startConfetti();
@@ -118,6 +129,8 @@ resizeConfetti();
 addEventListener("resize", resizeConfetti);
 
 let confetti = [];
+let burst = null;
+let shakePower = 0;
 
 function startConfetti() {
   const isMobile = innerWidth < 768;
@@ -128,6 +141,21 @@ createConfetti(isMobile ? 180 : 360); // aman buat HP
 function animateConfetti() {
   cctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
 
+  if (shakePower > 0) {
+    const dx = (Math.random() - 0.5) * shakePower;
+    const dy = (Math.random() - 0.5) * shakePower;
+    cctx.setTransform(1, 0, 0, 1, dx, dy);
+    shakePower *= 0.85;
+  } else {
+    cctx.setTransform(1, 0, 0, 1, 0, 0);
+  } 
+
+  if (burst && burst.alpha > 0.7) {
+  cctx.fillStyle = "rgba(255,255,255,0.35)";
+  cctx.fillRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+}
+  drawBurst();
+
     for (let i = confetti.length - 1; i >= 0; i--) {
         const p = confetti[i];
 
@@ -135,19 +163,48 @@ function animateConfetti() {
         p.x += p.vx;
         p.y += p.vy;
         if (p.rot !== undefined) p.rot += p.vr;
-        p.life--;
-
-        drawConfetti(p);
-
         
-        if (p.life <= 0 || p.y > confettiCanvas.height + 50 ) {
-          confetti.splice(i, 1);
-        }
+        drawConfetti(p);
+        
+       if ( p.y > confettiCanvas.height + 80 ||(p.life <= 0 && p.y > confettiCanvas.height * 0.75)) {
+       confetti.splice(i, 1);
+       }
 }
-
 
   if (confetti.length > 0) {
     requestAnimationFrame(animateConfetti);
+  }
+}
+
+function drawBurst() {
+  if (!burst) return;
+
+  burst.radius += 45;
+  burst.alpha -= 0.08;
+
+  const grad = cctx.createRadialGradient(
+    burst.x, burst.y, 0,
+    burst.x, burst.y, burst.radius * 0.6
+  );
+
+  grad.addColorStop(0, `rgba(255,255,255,${burst.alpha})`);
+  grad.addColorStop(0.4, `rgba(255,255,255,${burst.alpha * 0.6})`);
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+
+  cctx.fillStyle = grad;
+  cctx.beginPath();
+  cctx.arc(burst.x, burst.y, burst.radius * 0.6, 0, Math.PI * 2);
+  cctx.fill();
+
+  // SHOCKWAVE RING
+  cctx.strokeStyle = `rgba(255,255,255,${burst.alpha * 0.7})`;
+  cctx.lineWidth = 4;
+  cctx.beginPath();
+  cctx.arc(burst.x, burst.y, burst.radius, 0, Math.PI * 2);
+  cctx.stroke();
+
+  if (burst.alpha <= 0) {
+    burst = null;
   }
 }
 
@@ -157,11 +214,11 @@ function createConfetti(amount) {
   const oy = rect.top + rect.height / 2
 
   const colors = [
-    ["#ffd700", "#ffea70"], // gold
+    ['#FFD78A','#FFF1CC','#FFFFFF'], // gold
+    ['#FFD78A','#CBB7FF','#F7EFFF'], //lavender
+    ['#f49cb3', '#f8c7d6', '#FFFFFF'], // soft pink
     ["#c0c0c0", "#f5f5f5"], // silver
-    ["#ff6fae", "#ffb3d9"], // pink foil
     ["#6ee7ff", "#bff4ff"], // blue foil
-    ["#ffe066", "#fff4b8"], // yellow
     ["#7cffb2", "#d9ffe9"], // mint
     ["#ffffff", "#eaeaea"]  // white sparkle
   ];
@@ -170,7 +227,7 @@ for (let i = 0; i < amount; i++) {
 
   let metal = null;
   const r = Math.random();
-  if (r < 0.25) metal = "pink";
+  if (r < 0.25) metal = "gold";
   else if (r < 0.45) metal = "blue";
 
   if (Math.random() < 0.15) {
@@ -179,7 +236,7 @@ for (let i = 0; i < amount; i++) {
       y: oy,
       vx: (Math.random() - 0.5) * 20,
       vy: Math.random() * -18,
-      size: Math.random() * 3 + 1,
+      size: Math.random() * 5 + 3,
       color: ["#ffffff", "#ffffff"],
       shape: "circle",
       gravity: 0.2,
@@ -192,16 +249,15 @@ for (let i = 0; i < amount; i++) {
     confetti.push ({
       x: ox,
       y: oy,
-      vx: (Math.random() - 0.5) * 18,
-      vy: Math.random() * -16 - 6,
+      vx: (Math.random() - 0.5) * 14,
+      vy: Math.random() * -14 - 4,
       rot: Math.random() * Math.PI,
       vr: (Math.random() - 0.5) * 0.3,
-      size: Math.random() * 10 + 3,
+      size: Math.random() * 18 + 6,
       color,
       metal,
       shape:["rect", "circle", "ribbon", "heart", "rect", "circle"][Math.floor(Math.random()* 6)],
-      gravity: 0.4,
-      life: 120
+      gravity: 0.3 + Math.random() * 0.15
     });
   }
 }
@@ -219,21 +275,21 @@ function drawConfetti(p) {
     grad.addColorStop(1, p.color[1]);
   }
 
-  if (p.metal === "pink") {
-    grad.addColorStop(0, "#ff5ea9");
-    grad.addColorStop(0.25, "#ff64af");
+  if (p.metal === "gold") {
+    grad.addColorStop(0, "#FFD27D");
+    grad.addColorStop(0.25, "#FFDE9E");
     grad.addColorStop(0.45, "#ffffff"); // highlight
-    grad.addColorStop(0.75, "#ffd1e8");
-    grad.addColorStop(1, "#ff5dab");
+    grad.addColorStop(0.75,"#FFECC4");
+    grad.addColorStop(1,"#FFC85A");
   }
   cctx.shadowColor = "rgba(255,255,255,0.6)";
-  cctx.shadowBlur = 6;
+  cctx.shadowBlur = 8;
   if (p.metal === "blue") {
-    grad.addColorStop(0, "#34aeff");
-    grad.addColorStop(0.25, "#6798ee");
+    grad.addColorStop(0, "#6fa8ff");
+    grad.addColorStop(0.25,  "#8bbcff");
     grad.addColorStop(0.45, "#ffffff"); // highlight
-    grad.addColorStop(0.75, "#91bbff");
-    grad.addColorStop(1, "#3597f9");
+    grad.addColorStop(0.75,  "#8bbcff");
+    grad.addColorStop(1,"#6fa8ff");
   }
 
   cctx.fillStyle = grad;
