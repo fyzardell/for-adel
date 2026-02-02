@@ -11,13 +11,21 @@
     <!-- Fredoka -->
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
     <!-- Sniglet -->
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">   
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+    <!-- Allura -->
+    <link href="https://fonts.googleapis.com/css2?family=Allura&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="assets/css/prize.css">
+    <link rel="stylesheet" href="assets/css/moments.css">
+
 </head>
 <body>
     <canvas id="stars"></canvas>
-    <div class="card">
+    <canvas id="confetti"></canvas>
+
+    <!-- scene prize -->
+    <section id="prizeScene" class="scene active">
+     <div class="card">
        <img 
          id="gift"
          class="gift"
@@ -25,8 +33,80 @@
          alt="Gift"
         />
        <p class="hint" id="hint">Tap the gift 3 times to see what’s inside</p>
-    </div>
-    <canvas id="confetti"></canvas>
+     </div>
+    </section>
+
+    <!-- scene moments -->
+    <section id="momentScene" class="scene">
+        <div class="moment-bg"></div>
+        
+        <div class="moments">
+            <div class="moment-scroll">
+                <div class="title-wrap">
+                    <h1 class="title">Our Memories ♡</h1>
+                </div>
+
+        <!-- polaroid -->
+        <section class="polaroid-wrap">
+  
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo"> 
+                    <img src="assets/img/test2.jpg">
+                </div>
+                <div class="caption">First day</div>
+            </div>
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo empty"> </div>
+                <div class="caption">Second day</div>
+            </div>
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo empty"> </div>
+                <div class="caption">Second day</div>
+            </div>
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo empty"> </div>
+                <div class="caption">Second day</div>
+            </div>
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo empty"> </div>
+                <div class="caption">Second day</div>
+            </div>
+            <div class="polaroid" style="--w:220px;--ratio:3/4;--rotate:-6deg">
+                <div class="photo empty"> </div>
+                <div class="caption">Second day</div>
+            </div>
+        </section>
+<!-- 
+        <div class="polaroid" style="--w:260px;--ratio:1/1;--rotate:3deg">
+            <div class="photo">
+                <img src="img/foto2.jpg">
+            </div>
+            <div class="caption">You & Me</div>
+        </div>
+
+        <div class="polaroid" style="--w:300px;--ratio:4/3;--rotate:-2deg">
+            <div class="photo">
+                <img src="img/foto3.jpg">
+            </div>
+            <div class="caption">That night</div>
+        </div>
+
+        <div class="polaroid" style="--w:230px;--ratio:3/4;--rotate:5deg">
+            <div class="photo">
+                <img src="img/foto4.jpg">
+            </div>
+            <div class="caption">Smile</div>
+        </div>
+
+        <div class="polaroid" style="--w:260px;--ratio:1/1;--rotate:-4deg">
+            <div class="photo">
+                <img src="img/foto5.jpg">
+            </div>
+            <div class="caption">Always</div>
+        </div> -->
+
+    </section>
+
     <script src="assets/js/prize.js"></script>
 </body>
 </html>

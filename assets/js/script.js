@@ -3,9 +3,9 @@ const scenes = [
   { text: "3", duration: 1800 },
   { text: "2", duration: 1500 },
   { text: "1", duration: 1500 },
-  { text: "Happy Birthday Adel", duration: 2200 },
-  { text: "08.02.07", duration: 1700, switchRain: true },
-  { text: "Happy 19+", duration: 2000 },
+  { text: "Happy Birthday Adel", duration: 3000 },
+  { text: "08.02.07", duration: 3000, switchRain: true },
+  { text: "Happy 19+", duration: 3000 },
 ];
 
 window.addEventListener("pageshow", (e) => {

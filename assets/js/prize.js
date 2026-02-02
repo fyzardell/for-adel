@@ -96,8 +96,6 @@ gift.addEventListener("click", () => {
         gift.classList.add("explode");
         hint.textContent = "";
 
-        document.querySelector(".card").classList.add("fade-out");
-
         const rect = gift.getBoundingClientRect();
         burst = {
         x: rect.left + rect.width / 2,
@@ -108,6 +106,7 @@ gift.addEventListener("click", () => {
 
         setTimeout(() => {
             startConfetti();
+            startPageTransition();
         }, 300);
     }
 
@@ -134,8 +133,24 @@ let shakePower = 0;
 
 function startConfetti() {
   const isMobile = innerWidth < 768;
-createConfetti(isMobile ? 180 : 360); // aman buat HP
+createConfetti(isMobile ? 180 : 360); // mobile
   animateConfetti();
+}
+
+function startPageTransition() {
+  setTimeout(() => {
+
+    confetti.forEach(p => {
+      p.gravity *= 0.5;
+      p.vx *= 0.6;
+      p.vy *= 0.6;
+    });
+
+    // ganti scene
+    document.getElementById("prizeScene").classList.remove("active");
+    document.getElementById("momentScene").classList.add("active");
+
+  }, 1800);
 }
 
 function animateConfetti() {
@@ -214,13 +229,13 @@ function createConfetti(amount) {
   const oy = rect.top + rect.height / 2
 
   const colors = [
-    ['#FFD78A','#FFF1CC','#FFFFFF'], // gold
-    ['#FFD78A','#CBB7FF','#F7EFFF'], //lavender
-    ['#f49cb3', '#f8c7d6', '#FFFFFF'], // soft pink
+    ["#ffe066","#fff1a8","#FFFFFF"], // gold
+    ["#FFD78A","#CBB7FF","#F7EFFF"], //lavender
+    ["#ff8fab", "#ffd6e8", "#FFFFFF"], // soft pink
     ["#c0c0c0", "#f5f5f5"], // silver
     ["#6ee7ff", "#bff4ff"], // blue foil
     ["#7cffb2", "#d9ffe9"], // mint
-    ["#ffffff", "#eaeaea"]  // white sparkle
+    ["#ffffff", "#fcfcfc"]  // white sparkle
   ];
 
 for (let i = 0; i < amount; i++) {
@@ -253,7 +268,7 @@ for (let i = 0; i < amount; i++) {
       vy: Math.random() * -14 - 4,
       rot: Math.random() * Math.PI,
       vr: (Math.random() - 0.5) * 0.3,
-      size: Math.random() * 18 + 6,
+      size: Math.random() * 22 + 8,
       color,
       metal,
       shape:["rect", "circle", "ribbon", "heart", "rect", "circle"][Math.floor(Math.random()* 6)],

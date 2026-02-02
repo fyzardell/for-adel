@@ -1,0 +1,221 @@
+
+#momentScene {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  min-height: 200vh; /* atau sesuai isi */
+}
+
+#momentScene .moment-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 166, 202, 0.732),transparent 60%),
+    radial-gradient(circle at 80% 20%, rgba(159, 130, 255, 0.708),transparent 65%),
+    linear-gradient(135deg,#7d38ae,#8b6dbd,#d498ff, #ff8cbc, #ff88ba);
+
+  backdrop-filter: blur(40px);
+}
+
+.moments {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+/* isi moments telat dikit muncul */
+#momentScene .moments {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+}
+
+.scene.active .moments {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.title-wrap {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 18x;
+  z-index: 20;
+
+  margin-top: 80px;
+  margin-bottom: 120px;
+  justify-content: center;
+}
+
+.flourish {
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.8),
+    transparent
+  );
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.title {
+  font-family: 'Allura',sans-serif;
+  font-size: 75px;
+  color: #ffffff;
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  letter-spacing: 2px;
+  text-shadow:
+    0 0 10px rgba(255, 160, 211, 0.950),
+    0 0 25px rgba(180, 120, 255, 0.25);
+}
+
+.scene.active .title {
+  animation: writeText 2.6s ease forwards;
+  animation-delay: 0.6s;
+}
+
+@keyframes writeText {
+  to {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.96);
+
+  transition:
+    opacity 1.4s ease,
+    transform 1.4s ease;
+}
+
+.scene.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.polaroid {
+  width: var(--w, 240px);
+  background: #f8f8f6;
+  padding: 14px 14px 36px;
+  border-radius: 6px;
+  transform: rotate(var(--rotate, 0deg));
+  position: relative;
+
+  transition:
+    transform 0.45s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.45s ease;
+  will-change: transform;
+
+  box-shadow:
+    0 18px 35px rgba(0,0,0,0.35),
+    inset 0 0 0 1px rgba(0,0,0,0.04);
+}
+
+.polaroid:hover {
+  z-index: 20;
+  transform:
+    rotate(var(--rotate))
+    translateY(-18px)
+    scale(1.18);
+
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.5),
+    inset 0 0 0 1px rgba(0,0,0,0.05);
+}
+
+.photo {
+  background: #000;
+  width: 100%;
+  aspect-ratio: var(--ratio, 1 / 1);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.caption {
+  margin-top: 10px;
+  text-align: center;
+  font-family: 'Allura', cursive;
+  font-size: 18px;
+  color: #444;
+  opacity: 0.8;
+}
+
+.polaroid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(0,0,0,0.015),
+      rgba(0,0,0,0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  pointer-events: none;
+}
+
+.polaroid::before {
+  content: "";
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,0.25),
+    transparent 70%
+  );
+  z-index: -1;
+}
+
+.scene .polaroid {
+  opacity: 0;
+  transition: 1.2s ease, transform 0.45s ease;
+}
+
+.scene.active .polaroid {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.polaroid-wrap {
+  width: 100%;
+  max-width: 1400px;
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 80px;
+
+  padding: 0 80px;
+}
+
+.moment-scroll {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-bottom: 300px;
+}
+
